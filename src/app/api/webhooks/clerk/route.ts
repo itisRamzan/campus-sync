@@ -106,6 +106,12 @@ export async function POST(req: Request) {
                     });
                 }
             }
+            await User.findOneAndUpdate({ clerkID: evt.data.id }, {
+                firstName: evt.data.first_name,
+                lastName: evt.data.last_name,
+                email: evt.data.email_addresses[0].email_address,
+                photo: evt.data.image_url,
+            });
         }
         if (eventType === "user.deleted") {
             await User.findOneAndDelete({ clerkID: evt.data.id });

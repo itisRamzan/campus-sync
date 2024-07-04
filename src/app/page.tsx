@@ -7,6 +7,7 @@ import Image from "next/image";
 import Footer from "./(root)/Footer";
 import { useRouter } from "next/navigation";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const navigation = [
     { name: "Product", href: "#" },
@@ -57,13 +58,26 @@ export default function Home() {
                                 ))}
                             </div>
                             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                                <Button variant="primary" className="px-8 h-10"
-                                    onClick={() => {
-                                        router.push("/sign-in");
-                                    }}
-                                >
-                                    Sign In
-                                </Button>
+                                <SignedIn>
+                                    {/* <Button variant="outline" className="px-8 h-10"
+                                        onClick={() => {
+                                            router.push("/dashboard");
+                                        }}
+                                    >
+                                        Dashboard
+                                    </Button> */}
+                                    <UserButton />
+                                </SignedIn>
+                                <SignedOut>
+                                    <Button variant="primary" className="px-8 h-10"
+                                        onClick={() => {
+                                            router.push("/sign-in");
+                                        }}
+                                    >
+                                        Sign In
+                                    </Button>
+
+                                </SignedOut>
                             </div>
                         </nav>
                         <SheetContent>

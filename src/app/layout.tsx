@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,8 +20,29 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     color="#000fff"
                     showSpinner={false}
                 />
-                <ClerkProvider>
-                    <Toaster />
+                <ClerkProvider
+                    appearance={{
+                        layout: {
+                            animations: true,
+                            showOptionalFields: true,
+                            logoPlacement: "inside",
+                            socialButtonsPlacement: "bottom",
+                            socialButtonsVariant: "blockButton",
+                            logoLinkUrl: "/",
+                            termsPageUrl: "/terms",
+                            privacyPageUrl: "/privacy",
+                        },
+                        variables: {
+                            colorPrimary: "#6366f1"
+                        },
+                    }}
+                >
+                    <Toaster
+                        duration={800}
+                        position="top-right"
+                        expand={false}
+                        richColors={true}
+                    />
                     {children}
                 </ClerkProvider>
             </body>

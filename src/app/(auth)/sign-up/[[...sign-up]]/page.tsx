@@ -14,8 +14,8 @@ import { z } from "zod";
 import { SignUpFormOTPVerificationSchema, SignUpFormSchema } from "@/schemas/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { toast } from "@/components/ui/use-toast";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
+import { toast } from "sonner";
 
 export default function Page() {
     const { isLoaded, signUp, setActive } = useSignUp();
@@ -24,6 +24,11 @@ export default function Page() {
     const query = useSearchParams();
     const { isSignedIn } = useAuth();
     const [missing, setMissing] = React.useState(false);
+    const [redirect, setRedirect] = React.useState(false);
+
+    React.useEffect(() => {
+        redirect && router.push(query.get("redirect_url") || "/dashboard");
+    }, [redirect, query, router]);
 
     const form = useForm<z.infer<typeof SignUpFormSchema>>({
         resolver: zodResolver(SignUpFormSchema),
@@ -58,10 +63,13 @@ export default function Page() {
         }
         catch (err: any) {
             let error = JSON.parse(JSON.stringify(err, null, 2));
-            toast({
-                title: error.errors.map((e: any) => e.longMessage).join(", "),
-                description: "An error occurred. Please try again later."
-            });
+            toast.error(<>
+                <ul>
+                    {error.errors.map((e: any, i: number) => (
+                        <li key={i}>{e.longMessage}</li>
+                    ))}
+                </ul>
+            </>);
         }
     }
 
@@ -74,28 +82,25 @@ export default function Page() {
             });
             if (completeSignUp.status === "complete") {
                 await setActive({ session: completeSignUp.createdSessionId });
-                toast({
-                    variant: "success",
-                    title: "Account created successfully 🎉",
-                });
-                router.push(query.get("redirect_url") || "/");
+                toast.success("Sign Up Successful 🎉");
+                setRedirect(true);
             }
             else {
-                completeSignUp.status === "abandoned" ? toast({
-                    title: "Verification code is invalid.",
-                    description: "Please enter a valid verification code."
-                }) : toast({
-                    title: "Verification code is incorrect.",
-                    description: "Please enter a correct verification code."
-                });
+                completeSignUp.status === "abandoned" ?
+                    toast.error("Verification code is incorrect.")
+                    :
+                    toast.error("An error occurred. Please try again later.");
             }
         }
         catch (err: any) {
             let error = JSON.parse(JSON.stringify(err, null, 2));
-            toast({
-                title: error.errors.map((e: any) => e.longMessage).join(", "),
-                description: "An error occurred. Please try again later."
-            });
+            toast.error(<>
+                <ul>
+                    {error.errors.map((e: any, i: number) => (
+                        <li key={i}>{e.longMessage}</li>
+                    ))}
+                </ul>
+            </>);
         }
     }
 
@@ -305,5 +310,5 @@ export default function Page() {
             </div>
         );
     }
-    else return router.back();
+    else return router.push("/");
 }

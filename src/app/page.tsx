@@ -59,14 +59,12 @@ export default function Home() {
                             </div>
                             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                                 <SignedIn>
-                                    {/* <Button variant="outline" className="px-8 h-10"
-                                        onClick={() => {
-                                            router.push("/dashboard");
-                                        }}
-                                    >
-                                        Dashboard
-                                    </Button> */}
-                                    <UserButton />
+                                    <Button variant="link" className="px-8 h-10 flex gap-4">
+                                        <UserButton />
+                                        <span onClick={() => router.push("/dashboard")}>
+                                            Dashboard
+                                        </span>
+                                    </Button>
                                 </SignedIn>
                                 <SignedOut>
                                     <Button variant="primary" className="px-8 h-10"
@@ -76,7 +74,6 @@ export default function Home() {
                                     >
                                         Sign In
                                     </Button>
-
                                 </SignedOut>
                             </div>
                         </nav>

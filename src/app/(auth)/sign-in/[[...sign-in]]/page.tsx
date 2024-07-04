@@ -13,13 +13,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 export default function SignInForm() {
     const { isLoaded, signIn, setActive } = useSignIn();
     const router = useRouter();
     const query = useSearchParams();
     const { isSignedIn } = useAuth();
+    const [redirect, setRedirect] = React.useState(false);
 
     const signInForm = useForm<z.infer<typeof SignInFormSchema>>({
         resolver: zodResolver(SignInFormSchema),
@@ -29,8 +30,11 @@ export default function SignInForm() {
         }
     });
 
+    React.useEffect(() => {
+        redirect && router.push(query.get("redirect_url") || "/dashboard");
+    }, [redirect, query, router]);
+
     async function onSubmit(values: z.infer<typeof SignInFormSchema>) {
-        console.log(values);
         if (!isLoaded) return;
         try {
             const signInAttempt = await signIn.create({
@@ -39,27 +43,29 @@ export default function SignInForm() {
             });
             if (signInAttempt.status === "complete") {
                 await setActive({ session: signInAttempt.createdSessionId });
-                toast({
-                    title: "Sign In Successful",
-                    variant: "success",
-                });
-                router.push(query.get("redirect_url") || "/");
+                toast.success("Sign In Successful");
+                setRedirect(true);
             }
             else {
                 let error = JSON.parse(JSON.stringify(signInAttempt, null, 2));
-                toast({
-                    title: "Sign In Failed",
-                    description: error.errors.map((e: any) => e.longMessage).join(", "),
-                    variant: "destructive",
-                });
+                toast.error(<>
+                    <ul>
+                        {error.errors.map((e: any, i: number) => (
+                            <li key={i}>{e.longMessage}</li>
+                        ))}
+                    </ul>
+                </>);
             }
         }
         catch (err: any) {
             let error = JSON.parse(JSON.stringify(err, null, 2));
-            toast({
-                title: error.errors.map((e: any) => e.longMessage).join(", "),
-                description: "An error occurred. Please try again later."
-            });
+            toast.error(<>
+                <ul>
+                    {error.errors.map((e: any, i: number) => (
+                        <li key={i}>{e.longMessage}</li>
+                    ))}
+                </ul>
+            </>);
         }
     }
 
@@ -139,7 +145,13 @@ export default function SignInForm() {
                             </div>
                             <div className="text-center text-sm">
                                 Donot have an acccount? &nbsp;
-                                <Link href="/sign-up" className="underline underline-offset-4">Sign Up</Link>
+                                <Link
+                                    href={
+                                        query.get("redirect_url") ?
+                                            `/sign-up?redirect_url=${query.get("redirect_url")}` :
+                                            "/sign-up"
+                                    }
+                                    className="underline underline-offset-4">Sign Up</Link>
                             </div>
                         </div>
                     </div>
@@ -148,5 +160,5 @@ export default function SignInForm() {
             </>
         );
     }
-    else return router.back();
+    else return router.push("/");
 }

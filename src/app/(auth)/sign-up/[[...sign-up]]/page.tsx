@@ -297,7 +297,7 @@ export default function Page() {
                             </div>
                             <div className="text-center text-sm">
                                 Already have an account?{" "}
-                                <Link href="/sign-in" className="underline underline-offset-4">Sign in</Link>
+                                <Link href="/sign-in" className="underline underline-offset-4">Sign In</Link>
                             </div>
                         </div>
                     }

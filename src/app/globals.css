@@ -2,6 +2,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+.scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 @layer components {
     h1 {
         @apply text-4xl;

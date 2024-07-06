@@ -8,8 +8,11 @@ import NextTopLoader from "nextjs-toploader";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Campus Sync",
-    description: "A platform for students to connect and share resources",
+    title: {
+        template: "%s | Campus Sync",
+        default: "Campus Sync",
+    },
+    description: "A platform for students to connect and share resources"
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

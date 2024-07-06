@@ -2,8 +2,7 @@
 
 import { stdout } from "process";
 import mongoose from "mongoose";
-
-const DB_URL = process.env.DB_URL;
+import { DB_URL } from "../constants";
 
 const connectDB = async () => {
     if (!mongoose.connections[0].readyState) {

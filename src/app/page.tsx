@@ -323,7 +323,11 @@ export default function Home() {
                                             </span>
                                             Customizable AI based quizzes (upto 5/month per faculty)
                                         </p>
-                                        <Button variant="primary" className="mt-auto group gap-2">
+                                        <Button variant="primary" className="mt-auto group gap-2"
+                                            onClick={() => {
+                                                router.push("https://buy.stripe.com/test_00g9AAdMC9Gl5iwcMM");
+                                            }}
+                                        >
                                             Get Started
                                             <span className="group-hover:translate-x-3 transition-transform duration-300 ease-in-out">
                                                 --&gt;

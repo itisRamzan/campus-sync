@@ -6,9 +6,10 @@ import Student from "@/models/Student.Model";
 import User from "@/models/User.Model";
 import College from "@/models/College.Model";
 import { connectDB } from "@/lib/database/connectDB";
+import { ClerkWebHookSecret } from "@/lib/constants";
 
 export async function POST(req: Request) {
-    const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+    const WEBHOOK_SECRET = ClerkWebHookSecret;
 
     if (!WEBHOOK_SECRET) {
         throw new Error("Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local");

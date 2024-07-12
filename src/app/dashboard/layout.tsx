@@ -1,4 +1,3 @@
-
 import { isAdmin, isFaculty, isLoggedIn, isStudent } from "@/lib/user/auth";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -18,7 +17,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         {admin && <AdminDashboard />}
         {faculty && <FacultyDashboard />}
         {student && <StudentDashboard />}
-        <div className="sm:pl-60 sm:pr-4 p-4 max-sm:pt-16">
+        <div className="sm:pl-60 sm:pr-4 p-4 max-sm:pt-16 h-screen overflow-y-scroll scrollbar-hidden">
             {children}
         </div>
     </>;

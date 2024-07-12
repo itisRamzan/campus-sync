@@ -24,11 +24,7 @@ export default function Page() {
     const query = useSearchParams();
     const { isSignedIn } = useAuth();
     const [missing, setMissing] = React.useState(false);
-    const [redirect, setRedirect] = React.useState(false);
 
-    React.useEffect(() => {
-        redirect && router.push(query.get("redirect_url") || "/dashboard");
-    }, [redirect, query, router]);
 
     const form = useForm<z.infer<typeof SignUpFormSchema>>({
         resolver: zodResolver(SignUpFormSchema),
@@ -83,7 +79,8 @@ export default function Page() {
             if (completeSignUp.status === "complete") {
                 await setActive({ session: completeSignUp.createdSessionId });
                 toast.success("Sign Up Successful 🎉");
-                setRedirect(true);
+                window.location.href = query.get("redirect_url") ? query.get("redirect_url") as string : "/dashboard";
+
             }
             else {
                 completeSignUp.status === "abandoned" ?

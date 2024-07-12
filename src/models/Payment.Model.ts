@@ -14,7 +14,7 @@ const PaymentSchema: Schema<PaymentType> = new mongoose.Schema({
     paidBy: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "",
+        ref: "User",
     },
     status: {
         type: String,

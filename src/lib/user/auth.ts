@@ -1,4 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
+import { connectDB } from "../database/connectDB";
+import User from "@/models/User.Model";
 
 export async function isAdmin() {
     const { has } = auth();
@@ -24,4 +26,17 @@ export async function isStudent() {
 export async function isLoggedIn() {
     const { userId } = auth();
     return !!userId;
+}
+
+export async function isSub() {
+    const { userId } = auth();
+    try {
+        await connectDB();
+        const user = await User.findOne({ clerkID: userId, role: "admin" });
+        if (user === null) return false;
+        return true;
+    }
+    catch (error: any) {
+        return false;
+    }
 }

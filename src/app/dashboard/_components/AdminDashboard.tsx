@@ -1,16 +1,9 @@
-"use client";
-
 import Image from "next/image";
-import { GraduationCap, HomeIcon, Mail, Menu, UsersRound, VideoIcon } from "lucide-react";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { SignedIn, UserButton, SignedOut } from "@clerk/nextjs";
+import { GeneralLinks, UsersLinks } from "../clientComponents/admin";
 
 export default function AdminDashboard() {
-    const router = useRouter();
-    const pathname = usePathname();
     return (
         <>
             <div>
@@ -35,48 +28,11 @@ export default function AdminDashboard() {
                             <span className="mt-4 text-xs text-gray-500">
                                 GENERAL
                             </span>
-                            <div className="mt-2 space-y-0 text-gray-500">
-                                <Link className={` flex items-center gap-4 p-2 rounded w-48
-                                    ${pathname === "/dashboard" ? "bg-gray-700 text-white font-medium" : "hover:text-black hover:font-medium"}
-                                    `} href="/dashboard"
-                                >
-                                    <HomeIcon className="w-5 h-5" />
-                                    Dashboard
-                                </Link>
-                                <Link className={` flex items-center gap-4 p-2 rounded w-48
-                                    ${pathname === "/dashboard/messages" ? "bg-gray-700 text-white font-medium" : "hover:bg-gray-700 hover:text-white"}
-                                    `} href="/dashboard/messages"
-                                >
-                                    <Mail className="w-5 h-5" />
-                                    Messages
-                                </Link>
-                                <Link className={` flex items-center gap-4 p-2 rounded w-48
-                                    ${pathname === "/dashboard/videos" ? "bg-gray-700 text-white font-medium" : "hover:bg-gray-700 hover:text-white"}
-                                    `} href="/dashboard/videos"
-                                >
-                                    <VideoIcon className="w-5 h-5" />
-                                    Videos
-                                </Link>
-                            </div>
+                            <GeneralLinks />
                             <span className="mt-4 text-xs text-gray-500">
                                 USERS
                             </span>
-                            <div className="mt-2 space-y-0 text-gray-500">
-                                <Link className={` flex items-center gap-4 p-2 rounded w-48
-                                    ${pathname === "/dashboard/users" ? "bg-gray-700 text-white font-medium" : "hover:bg-gray-700 hover:text-white"}
-                                    `} href="/dashboard/users"
-                                >
-                                    <UsersRound className="w-5 h-5" />
-                                    Users
-                                </Link>
-                                <Link className={` flex items-center gap-4 p-2 rounded w-48
-                                    ${pathname === "/dashboard/students" ? "bg-gray-700 text-white font-medium" : "hover:bg-gray-700 hover:text-white"}
-                                    `} href="/dashboard/students"
-                                >
-                                    <GraduationCap className="w-5 h-5" />
-                                    Students
-                                </Link>
-                            </div>
+                            <UsersLinks />
                         </nav>
                         <SheetContent>
                             <SheetTitle>

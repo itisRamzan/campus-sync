@@ -7,6 +7,12 @@ const nextConfig = {
             },
             {
                 hostname: "tailwindui.com"
+            },
+            {
+                hostname: "img.clerk.com"
+            },
+            {
+                hostname: "res.cloudinary.com",
             }
         ]
     }

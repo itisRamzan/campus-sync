@@ -1,23 +1,19 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Check, ClipboardIcon, CloudIcon, GaugeIcon, Menu, PuzzleIcon, UsersIcon, VideoIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "./(root)/Footer";
-import { useRouter } from "next/navigation";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { PackageButton } from "./dashboard/_components/home/PaymentButtons";
 
 const navigation = [
-    { name: "Product", href: "#" },
-    { name: "Features", href: "#" },
-    { name: "Marketplace", href: "#" },
+    { name: "Features", href: "#features" },
     { name: "Pricing", href: "#pricing" },
+    { name: "About", href: "/about" }
 ];
 
 export default function Home() {
-    const router = useRouter();
     return (
         <>
             <div className="bg-white relative overflow-hidden">
@@ -61,19 +57,15 @@ export default function Home() {
                                 <SignedIn>
                                     <Button variant="link" className="px-8 h-10 flex gap-4">
                                         <UserButton />
-                                        <span onClick={() => router.push("/dashboard")}>
+                                        <Link href="/dashboard">
                                             Dashboard
-                                        </span>
+                                        </Link>
                                     </Button>
                                 </SignedIn>
                                 <SignedOut>
-                                    <Button variant="primary" className="px-8 h-10"
-                                        onClick={() => {
-                                            router.push("/sign-in");
-                                        }}
-                                    >
+                                    <Link href="/sign-in" className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 h-10 px-4 py-2">
                                         Sign In
-                                    </Button>
+                                    </Link>
                                 </SignedOut>
                             </div>
                         </nav>
@@ -103,11 +95,23 @@ export default function Home() {
                                         {item.name}
                                     </Link>
                                 ))}
+                                <SignedIn>
+                                    <Button variant="link" className="h-10 flex gap-4">
+                                        <UserButton />
+                                        <Link href="/dashboard">
+                                            Dashboard
+                                        </Link>
+                                    </Button>
+                                </SignedIn>
+                                <SignedOut>
+                                    <Link href="/sign-in" className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 h-10 px-4 py-2">
+                                        Sign In
+                                    </Link>
+                                </SignedOut>
                             </SheetDescription>
                         </SheetContent>
                     </header>
                 </Sheet>
-
                 <div className="relative isolate pt-14">
                     <div
                         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 bg-scroll"
@@ -140,13 +144,9 @@ export default function Home() {
                             </p>
                             <div className="mt-10 flex items-center justify-center gap-x-6">
                                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                                    <Button variant="primary" className="px-8 h-10"
-                                        onClick={() => {
-                                            router.push("/sign-in");
-                                        }}
-                                    >
+                                    <Link className="bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300 h-10 px-4 py-2" href="/sign-in">
                                         Get Started
-                                    </Button>
+                                    </Link>
                                     <Button variant="outline" className="px-8 h-10 flex gap-2 group">
                                         Learn More
                                         <span
@@ -171,7 +171,7 @@ export default function Home() {
                             }}
                         />
                     </div>
-                    <section className="w-full py-8 sm:py-10">
+                    <section className="w-full py-8 sm:py-10" id="features">
                         <div className="mx-auto max-w-7xl px-6 lg:px-8">
                             <div className="mx-auto max-w-2xl lg:text-center">
                                 <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Everything you need for your organization</p>
@@ -323,16 +323,7 @@ export default function Home() {
                                             </span>
                                             Customizable AI based quizzes (upto 5/month per faculty)
                                         </p>
-                                        <Button variant="primary" className="mt-auto group gap-2"
-                                            onClick={() => {
-                                                router.push("https://buy.stripe.com/test_00g9AAdMC9Gl5iwcMM");
-                                            }}
-                                        >
-                                            Get Started
-                                            <span className="group-hover:translate-x-3 transition-transform duration-300 ease-in-out">
-                                                --&gt;
-                                            </span>
-                                        </Button>
+                                        <PackageButton packageType="LITE" />
                                         <p className="text-xs text-gray-500 mt-3">
                                             Suitable for small institutions and coaching centers.
                                         </p>
@@ -364,12 +355,7 @@ export default function Home() {
                                             </span>
                                             Performance Analytics
                                         </p>
-                                        <Button variant="primary" className="mt-auto group gap-2">
-                                            Get Started
-                                            <span className="group-hover:translate-x-3 transition-transform duration-300 ease-in-out">
-                                                --&gt;
-                                            </span>
-                                        </Button>
+                                        <PackageButton packageType="STANDARD" />
                                         <p className="text-xs text-gray-500 mt-3">Suitable for medium sized institutions and universities.</p>
                                     </div>
                                 </div>
@@ -404,12 +390,7 @@ export default function Home() {
                                             </span>
                                             AI Personalized Learning Experiences
                                         </p>
-                                        <Button variant="primary" className="mt-auto group gap-2">
-                                            Get Started
-                                            <span className="group-hover:translate-x-3 transition-transform duration-300 ease-in-out">
-                                                --&gt;
-                                            </span>
-                                        </Button>
+                                        <PackageButton packageType="PREMIUM" />
                                         <p className="text-xs text-gray-500 mt-3">Suitable for large institutions and universities.</p>
                                     </div>
                                 </div>

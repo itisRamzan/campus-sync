@@ -20,7 +20,6 @@ export default function SignInForm() {
     const router = useRouter();
     const query = useSearchParams();
     const { isSignedIn } = useAuth();
-    const [redirect, setRedirect] = React.useState(false);
 
     const signInForm = useForm<z.infer<typeof SignInFormSchema>>({
         resolver: zodResolver(SignInFormSchema),
@@ -30,9 +29,6 @@ export default function SignInForm() {
         }
     });
 
-    React.useEffect(() => {
-        redirect && router.push(query.get("redirect_url") || "/dashboard");
-    }, [redirect, query, router]);
 
     async function onSubmit(values: z.infer<typeof SignInFormSchema>) {
         if (!isLoaded) return;
@@ -44,7 +40,7 @@ export default function SignInForm() {
             if (signInAttempt.status === "complete") {
                 await setActive({ session: signInAttempt.createdSessionId });
                 toast.success("Sign In Successful");
-                setRedirect(true);
+                window.location.href = query.get("redirect_url") ? query.get("redirect_url") as string : "/dashboard";
             }
             else {
                 let error = JSON.parse(JSON.stringify(signInAttempt, null, 2));

@@ -1,15 +1,11 @@
-"use client";
-
 import { HoverCard, HoverCardContent, HoverCardTrigger, } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BriefcaseBusinessIcon, CalendarDays, FacebookIcon, GithubIcon, InstagramIcon, LinkedinIcon, TwitterIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
-    const router = useRouter();
     return <>
         <footer className="text-gray-600 body-font">
             <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
@@ -35,15 +31,18 @@ export default function Footer() {
                                     <p className="text-sm">
                                         I&apos;m an upcoming Engineer and a Full-Stack Developer. <br />
                                         <div className="flex items-center justify-between">
-                                            <BriefcaseBusinessIcon className="h-5 w-5 inline-block text-gray-500 cursor-pointer hover:text-gray-600 transition-colors duration-300 ease-in-out"
-                                                onClick={() => router.push("https://ramzanshareef.me")}
-                                            />
-                                            <LinkedinIcon className="h-5 w-5 inline-block cursor-pointer text-gray-500 hover:text-blue-600 transition-colors duration-300 ease-in-out"
-                                                onClick={() => router.push("https://www.linkedin.com/in/ramzanshareef/")}
-                                            />
-                                            <GithubIcon className="h-5 w-5 inline-block cursor-pointer text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
-                                                onClick={() => router.push("https://github.com/itisRamzan")}
-                                            />
+                                            <Link href="https://ramzanshareef.me">
+                                                <BriefcaseBusinessIcon className="h-5 w-5 inline-block text-gray-500 cursor-pointer hover:text-gray-600 transition-colors duration-300 ease-in-out"
+                                                />
+                                            </Link>
+                                            <Link href="https://linkedin.com/in/ramzanshareef">
+                                                <LinkedinIcon className="h-5 w-5 inline-block cursor-pointer text-gray-500 hover:text-blue-600 transition-colors duration-300 ease-in-out"
+                                                />
+                                            </Link>
+                                            <Link href="https://github.com/itisRamzan">
+                                                <GithubIcon className="h-5 w-5 inline-block cursor-pointer text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+                                                />
+                                            </Link>
                                         </div>
                                     </p>
                                     <div className="flex items-center pt-2">
@@ -58,14 +57,22 @@ export default function Footer() {
                     </div>
                 </HoverCard>
                 <span className="flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start gap-2">
-                    <FacebookIcon className="h-5 w-5 text-gray-500 cursor-pointer 
-                    hover:text-blue-500 transition-colors duration-300 ease-in-out hover:-rotate-12" onClick={() => router.push("https://www.facebook.com/campussync")} />
-                    <TwitterIcon className="h-5 w-5 text-gray-500 cursor-pointer
-                    hover:text-blue-400 transition-colors duration-300 ease-in-out hover:rotate-12" onClick={() => router.push("https://twitter.com/campussync")} />
-                    <InstagramIcon className="h-5 w-5 text-gray-500 cursor-pointer
-                    hover:text-red-500 transition-colors duration-300 ease-in-out hover:-rotate-12" onClick={() => router.push("https://www.instagram.com/campussync")} />
-                    <LinkedinIcon className="h-5 w-5 text-gray-500 cursor-pointer
-                    hover:text-blue-500 transition-colors duration-300 ease-in-out hover:rotate-12" onClick={() => router.push("https://www.linkedin.com/company/campussync")} />
+                    <Link href="https://facebook.com/campussync">
+                        <FacebookIcon className="h-5 w-5 text-gray-500 cursor-pointer 
+                    hover:text-blue-500 transition-colors duration-300 ease-in-out hover:-rotate-12" />
+                    </Link>
+                    <Link href="https://twitter.com/campussync">
+                        <TwitterIcon className="h-5 w-5 text-gray-500 cursor-pointer
+                    hover:text-blue-400 transition-colors duration-300 ease-in-out hover:rotate-12" />
+                    </Link>
+                    <Link href="https://instagram.com/campussync">
+                        <InstagramIcon className="h-5 w-5 text-gray-500 cursor-pointer
+                    hover:text-red-500 transition-colors duration-300 ease-in-out hover:-rotate-12" />
+                    </Link>
+                    <Link href="https://linkedin.com/company/campussync">
+                        <LinkedinIcon className="h-5 w-5 text-gray-500 cursor-pointer
+                    hover:text-blue-500 transition-colors duration-300 ease-in-out hover:rotate-12" />
+                    </Link>
                 </span>
             </div>
         </footer>

@@ -1,8 +1,22 @@
+import { isAdmin, isFaculty, isLoggedIn, isStudent, isSub } from "@/lib/user/auth";
+import { redirect } from "next/navigation";
+import UserDashboardHome from "./_components/home/UserDashboardHome";
+import SubUserDashboardHome from "./_components/home/SubUserDashboardHome";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+    const loggedIn = await isLoggedIn();
+    if (!loggedIn) redirect("/login");
+    const sub = await isSub();
+    const admin = await isAdmin();
+    const faculty = await isFaculty();
+    const student = await isStudent();
     return (
-        <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quod totam harum beatae. Ex corrupti optio, illo vero nostrum saepe animi! Pariatur, a! Commodi iure ducimus alias fugiat amet odio nemo, culpa fuga tempore ipsa aliquid vitae ab ratione non. Inventore sapiente vel maiores fugiat facilis expedita. Sunt, debitis placeat.
-        </div>
+        <>
+            {!admin && !faculty && !student && !sub && <UserDashboardHome />}
+            {sub && <SubUserDashboardHome />}
+            {admin && <div>Admin Dashboard</div>}
+            {faculty && <div>Faculty Dashboard</div>}
+            {student && <div>Student Dashboard</div>}
+        </>
     );
 }

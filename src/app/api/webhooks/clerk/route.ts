@@ -1,6 +1,6 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { WebhookEvent } from "@clerk/nextjs/server";
+import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
 import Faculty from "@/models/Faculty.Model";
 import Student from "@/models/Student.Model";
 import User from "@/models/User.Model";
@@ -75,13 +75,18 @@ export async function POST(req: Request) {
                     });
                 }
             }
-            await User.create({
+            let user = await User.create({
                 clerkID: evt.data.id,
                 firstName: evt.data.first_name,
                 lastName: evt.data.last_name,
                 email: evt.data.email_addresses[0].email_address,
                 photo: evt.data.image_url,
                 role: "user",
+            });
+            clerkClient.users.updateUser(evt.data.id, {
+                privateMetadata: {
+                    mongooseID: user._id,
+                }
             });
         }
         if (eventType === "user.updated") {
@@ -120,11 +125,16 @@ export async function POST(req: Request) {
             await Student.findOneAndDelete({ clerkID: evt.data.id });
         }
         if (eventType === "organization.created") {
-            await College.create({
+            let college = await College.create({
                 admin: evt.data.private_metadata?._id, // admin mongoose ID
                 name: evt.data.name,
                 location: evt.data.private_metadata?.location,
                 logo: evt.data.image_url,
+            });
+            clerkClient.organizations.updateOrganization(evt.data.id, {
+                privateMetadata: {
+                    mongooseID: college._id,
+                }
             });
         }
         if (eventType === "organization.updated") {

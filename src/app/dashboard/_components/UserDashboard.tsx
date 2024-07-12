@@ -1,22 +1,17 @@
-"use client";
-
 import Image from "next/image";
-import { GraduationCap, HomeIcon, Mail, Menu, UsersRound, VideoIcon } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { SignedIn, UserButton, SignedOut } from "@clerk/nextjs";
+import React from "react";
+import { SidebarContent } from "../clientComponents/user";
 
 export default function UserDashboard() {
-    const router = useRouter();
-    const pathname = usePathname();
     return (
         <>
             <div>
                 <Sheet>
                     <header className="absolute">
-                        <nav className="flex flex-row sm:flex-col p-4 bg-white  sm:bg-gray-800 w-fit sm:h-screen max-sm:fixed max-sm:w-screen max-sm:h-12 max-sm:shadow-md" aria-label="Global">
+                        <nav className="flex flex-row sm:flex-col p-4 bg-white  sm:bg-gray-800 w-fit sm:h-screen max-sm:fixed max-sm:w-screen max-sm:h-12 max-sm:shadow-md z-50" aria-label="Global">
                             <div id="greater-than-sm-screen" className="max-sm:hidden">
                                 <div className="flex mb-2">
                                     <Link href="/" className="flex items-center justify-center gap-4">
@@ -81,31 +76,4 @@ export default function UserDashboard() {
             </div>
         </>
     );
-}
-
-function SidebarContent() {
-    const pathname = usePathname();
-    return <>
-        <span className="mt-4 text-xs text-gray-500">
-            GENERAL
-        </span>
-        <div className="my-2 space-y-0 text-gray-500">
-            <Link className={` flex items-center gap-4 p-2 rounded w-48
-            ${pathname === "/dashboard" ? "bg-gray-700 text-white font-medium" : "hover:text-black hover:font-medium"}
-                                    `} href="/dashboard"
-            >
-                <HomeIcon className="w-5 h-5" />
-                Dashboard
-            </Link>
-        </div>
-        <div className="w-fit rounded-lg bg-gray-300 sm:bg-gray-600 p-0.5 absolute bottom-4">
-            <UserButton
-                showName={true}
-                appearance={{
-                    variables: {
-                    }
-                }}
-            />
-        </div>
-    </>;
 }

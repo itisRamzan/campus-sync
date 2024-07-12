@@ -46,7 +46,11 @@ export default function SignInForm() {
                 let error = JSON.parse(JSON.stringify(signInAttempt, null, 2));
                 toast.error(<>
                     <ul>
-                        {error.errors.map((e: any, i: number) => (
+                        {error.errors.map((e: {
+                            shortMessage: string;
+                            longMessage: string;
+                            code: string;
+                        }, i: number) => (
                             <li key={i}>{e.longMessage}</li>
                         ))}
                     </ul>
@@ -57,7 +61,11 @@ export default function SignInForm() {
             let error = JSON.parse(JSON.stringify(err, null, 2));
             toast.error(<>
                 <ul>
-                    {error.errors.map((e: any, i: number) => (
+                    {error.errors.map((e: {
+                        shortMessage: string;
+                        longMessage: string;
+                        code: string;
+                    }, i: number) => (
                         <li key={i}>{e.longMessage}</li>
                     ))}
                 </ul>

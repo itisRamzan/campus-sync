@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { useCallback } from "react";
 import { ArrowUp01Icon, XIcon } from "lucide-react";
-import { useDropzone } from "react-dropzone";
+import { FileRejection, useDropzone } from "react-dropzone";
 
 const SubUserDashboardHome = () => {
     const form = useForm<z.infer<typeof CreateCollegeFormSchema>>({
@@ -28,7 +28,7 @@ const SubUserDashboardHome = () => {
         console.log(values);
     }
 
-    const onDrop = useCallback((acceptedFiles: any, rejectedFiles: any) => {
+    const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (rejectedFiles.length > 0) {
             toast.error("Please select only Images", {
                 duration: 1200
@@ -52,6 +52,10 @@ const SubUserDashboardHome = () => {
         maxFiles: 1,
         onDrop
     });
+
+    interface ExtendedFile extends File {
+        preview: string;
+    }
 
     return <>
         <h1 className="text-2xl font-semibold">Create College to Start using the Platform</h1>
@@ -103,12 +107,12 @@ const SubUserDashboardHome = () => {
                                         form.watch("logo") ? (
                                             <div className="flex flex-col md:flex-row items-center min-w-full gap-4">
                                                 <Image
-                                                    src={(form.watch("logo") as any)?.preview as string}
+                                                    src={(form.watch("logo") as ExtendedFile)?.preview as string}
                                                     alt={form.watch("logo")?.name as string}
                                                     width={100}
                                                     height={100}
                                                     onLoad={() => {
-                                                        URL.revokeObjectURL((form.watch("logo") as any)?.preview as string);
+                                                        URL.revokeObjectURL((form.watch("logo") as ExtendedFile)?.preview as string);
                                                     }}
                                                     className="h-60 md:w-auto rounded-md transition duration-300 ease-in-out hover:border-gray-500 z-0 md:max-w-[50%] max-md:w-full"
                                                 />

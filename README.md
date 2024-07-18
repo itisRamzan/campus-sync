@@ -1,25 +1,14 @@
-# Campus Sync SaaS Platform
+# 📢 Campus Sync SaaS Platform
 
 Campus Sync is a student and faculty management system aimed at streamlining campus operations. This repository extends the original <a href="https://github.com/ramzanshareef/campus-sync-dev">Campus Sync Project</a> into a full-fledged Software as a Service (SaaS) platform.
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-- [Usage](#usage)
-- [Contributing](#contributing)
-
-## Introduction
+## ⭐ Introduction
 
 Campus Sync SaaS Platform is built upon the foundations of the original Campus Sync project, enhancing it with scalable features for broader institutional use. It provides tools for student management, faculty collaboration, and administrative tasks.
 
 This repository serves as the core engine for the SaaS deployment model of Campus Sync, allowing educational institutions to manage their operations efficiently.
 
-## Features
+## 🚀 Features
 
 - **Student Management**: Track student profiles, academic progress, and communication channels.
 - **Faculty Collaboration**: Facilitate collaboration among faculty members through shared resources and schedules.
@@ -30,7 +19,7 @@ This repository serves as the core engine for the SaaS deployment model of Campu
 
 For a comprehensive list of features, refer to the [original Campus Sync repository](https://github.com/ramzanshareef/campus-sync-dev).
 
-## Getting Started
+## ⬇️ Getting Started
 
 ### Prerequisites
 
@@ -90,7 +79,7 @@ yarn run dev
 3. Accessing the Application
 You can now access the application in your web browser at http://localhost:3000.
 
-## Usage
+## 📝 Usage
 1. **User Registration**: Students and faculty can sign up using their email addresses.
 2. **Subscription Plans**: Choose from Lite, Standard, or Premium plans with varying access to AI quizzes and other features, managed through Stripe payments.
 3. **Course Management**: Faculty can create new courses, upload videos, and manage student enrollments.
@@ -99,7 +88,7 @@ You can now access the application in your web browser at http://localhost:3000.
 6. **Real-time Chat**: Communicate with other students in real-time for project collaboration and study groups.
 7. **Profile Management**: Update user profiles and view academic progress and quiz results.
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps to contribute:
 
@@ -109,7 +98,7 @@ Contributions are welcome! Please follow these steps to contribute:
 4. Push to the branch (git push origin feature/YourFeature)
 5. Open a pull request
 
-## Contact
+## 👉 Contact
 
 For any inquiries or feedback, please reach out to:
 - **Name**: Mohd Ramzan Shareef

@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useCallback } from "react";
 import { ArrowUp01Icon, XIcon } from "lucide-react";
 import { FileRejection, useDropzone } from "react-dropzone";
+import { createCollege } from "@/actions/sub-user";
 
 const SubUserDashboardHome = () => {
     const form = useForm<z.infer<typeof CreateCollegeFormSchema>>({
@@ -25,7 +26,12 @@ const SubUserDashboardHome = () => {
     });
 
     async function onSubmit(values: z.infer<typeof CreateCollegeFormSchema>) {
-        console.log(values);
+        let formData = new FormData();
+        formData.append("name", values.name);
+        formData.append("location", values.location);
+        formData.append("logo", values.logo);
+        let res = await createCollege(formData);
+        console.log(res);
     }
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
@@ -58,7 +64,10 @@ const SubUserDashboardHome = () => {
     }
 
     return <>
-        <h1 className="text-2xl font-semibold">Create College to Start using the Platform</h1>
+        <h1 className="font-semibold">Add College Details to continue...</h1>
+        <h4 className="animate-pulse text-red-600">
+            Please Fill the details carefully
+        </h4>
         <Form {...form}
             clearErrors={form.clearErrors}
         >

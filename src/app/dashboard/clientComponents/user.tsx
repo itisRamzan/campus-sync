@@ -49,7 +49,7 @@ export function SidebarContent() {
                                 <div className="flex flex-row justify-between gap-4">
                                     <SignOutButton
                                         signOutOptions={{
-                                            redirectUrl: "/login"
+                                            redirectUrl: "/sign-in"
                                         }}
                                     >
                                         <Button variant="destructive"

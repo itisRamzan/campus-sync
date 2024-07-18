@@ -8,7 +8,7 @@ import StudentDashboard from "./_components/StudentDashboard";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const loggedIn = await isLoggedIn();
-    if (!loggedIn) redirect("/login");
+    if (!loggedIn) redirect("/sign-in");
     const admin = await isAdmin();
     const faculty = await isFaculty();
     const student = await isStudent();

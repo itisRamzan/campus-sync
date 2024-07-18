@@ -5,7 +5,7 @@ import SubUserDashboardHome from "./_components/home/SubUserDashboardHome";
 
 export default async function DashboardPage() {
     const loggedIn = await isLoggedIn();
-    if (!loggedIn) redirect("/login");
+    if (!loggedIn) redirect("/sign-in");
     const sub = await isSub();
     const admin = await isAdmin();
     const faculty = await isFaculty();
